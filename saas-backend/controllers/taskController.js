@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Task = require("../models/Task");
 const Project = require("../models/Project");
+const User = require("../models/User");
 
 /**
  * 🔐 Helper: Check permission (Owner OR Admin)
@@ -14,12 +15,10 @@ const canModify = (user, task) => {
 
 /**
  * @desc    Create Task
- * @route   POST /api/tasks
- * @access  Private
  */
 const createTask = async (req, res) => {
   try {
-    const { title, description, projectId } = req.body;
+    const { title, description, projectId, assignedTo } = req.body;
 
     if (!title || !projectId) {
       return res.status(400).json({
@@ -31,7 +30,7 @@ const createTask = async (req, res) => {
       return res.status(400).json({ message: "Invalid project ID" });
     }
 
-    // 🔐 Ensure project belongs to same company
+    // 🔐 Check project belongs to company
     const project = await Project.findOne({
       _id: projectId,
       companyId: req.user.companyId,
@@ -43,15 +42,35 @@ const createTask = async (req, res) => {
       });
     }
 
+    // 🔐 Validate assigned user (if provided)
+    let assignedUser = null;
+    if (assignedTo) {
+      assignedUser = await User.findOne({
+        _id: assignedTo,
+        companyId: req.user.companyId,
+      });
+
+      if (!assignedUser) {
+        return res.status(404).json({
+          message: "Assigned user not found in your company",
+        });
+      }
+    }
+
     const task = await Task.create({
       title,
       description,
       projectId,
-      companyId: req.user.companyId, // 🔥 GOLD RULE
+      companyId: req.user.companyId,
       createdBy: req.user.id,
+      assignedTo: assignedUser ? assignedUser._id : req.user.id, // default self
     });
 
-    res.status(201).json(task);
+    const populatedTask = await Task.findById(task._id)
+      .populate("createdBy", "name email")
+      .populate("assignedTo", "name email");
+
+    res.status(201).json(populatedTask);
   } catch (error) {
     console.error("Create Task Error:", error.message);
     res.status(500).json({ message: "Server error" });
@@ -59,36 +78,25 @@ const createTask = async (req, res) => {
 };
 
 /**
- * @desc    Get Tasks (with pagination + filters)
- * @route   GET /api/tasks
- * @access  Private
+ * @desc    Get Tasks
  */
 const getTasks = async (req, res) => {
   try {
-    const {
-      page = 1,
-      limit = 5,
-      status,
-      projectId,
-    } = req.query;
+    const { page = 1, limit = 5, status, projectId, assignedTo } = req.query;
 
     const query = {
-      companyId: req.user.companyId, // 🔥 GOLD RULE
+      companyId: req.user.companyId,
     };
 
     if (status) query.status = status;
-
-    if (projectId) {
-      if (!mongoose.Types.ObjectId.isValid(projectId)) {
-        return res.status(400).json({ message: "Invalid project ID" });
-      }
-      query.projectId = projectId;
-    }
+    if (projectId) query.projectId = projectId;
+    if (assignedTo) query.assignedTo = assignedTo;
 
     const skip = (page - 1) * limit;
 
     const tasks = await Task.find(query)
       .populate("createdBy", "name email")
+      .populate("assignedTo", "name email")
       .populate("projectId", "name")
       .sort({ createdAt: -1 })
       .skip(skip)
@@ -109,9 +117,7 @@ const getTasks = async (req, res) => {
 };
 
 /**
- * @desc    Update Task
- * @route   PUT /api/tasks/:id
- * @access  Private
+ * @desc    Update Task (basic fields)
  */
 const updateTask = async (req, res) => {
   try {
@@ -130,7 +136,6 @@ const updateTask = async (req, res) => {
       return res.status(404).json({ message: "Task not found" });
     }
 
-    // 🔐 RBAC + Ownership
     if (!canModify(req.user, task)) {
       return res.status(403).json({ message: "Not authorized" });
     }
@@ -149,9 +154,62 @@ const updateTask = async (req, res) => {
 };
 
 /**
+ * 🚀 NEW: Assign Task
+ * @route   PUT /api/tasks/:id/assign
+ */
+const assignTask = async (req, res) => {
+  try {
+    const { assignedTo } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({ message: "Invalid task ID" });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(assignedTo)) {
+      return res.status(400).json({ message: "Invalid user ID" });
+    }
+
+    const task = await Task.findOne({
+      _id: req.params.id,
+      companyId: req.user.companyId,
+    });
+
+    if (!task) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+
+    // 🔐 Check assigned user belongs to same company
+    const user = await User.findOne({
+      _id: assignedTo,
+      companyId: req.user.companyId,
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found in your company",
+      });
+    }
+
+    // 🔐 RBAC
+    if (!canModify(req.user, task)) {
+      return res.status(403).json({ message: "Not authorized" });
+    }
+
+    task.assignedTo = assignedTo;
+    await task.save();
+
+    const updatedTask = await Task.findById(task._id)
+      .populate("assignedTo", "name email");
+
+    res.json(updatedTask);
+  } catch (error) {
+    console.error("Assign Task Error:", error.message);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+/**
  * @desc    Delete Task
- * @route   DELETE /api/tasks/:id
- * @access  Private
  */
 const deleteTask = async (req, res) => {
   try {
@@ -168,7 +226,6 @@ const deleteTask = async (req, res) => {
       return res.status(404).json({ message: "Task not found" });
     }
 
-    // 🔐 RBAC + Ownership
     if (!canModify(req.user, task)) {
       return res.status(403).json({ message: "Not authorized" });
     }
@@ -187,4 +244,5 @@ module.exports = {
   getTasks,
   updateTask,
   deleteTask,
+  assignTask, // 🔥 NEW EXPORT
 };
