@@ -13,8 +13,8 @@ const taskSchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: ["todo", "in-progress", "done"],
-      default: "todo",
+      enum: ["Not Assigned", "Assigned", "In-Progress", "Completed"],
+      default: "Not Assigned",
     },
 
     projectId: {
