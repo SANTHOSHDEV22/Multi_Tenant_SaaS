@@ -89,8 +89,12 @@ const getTasks = async (req, res) => {
     };
 
     if (status) query.status = status;
-    if (projectId) query.projectId = projectId;
-    if (assignedTo) query.assignedTo = assignedTo;
+    if (projectId && mongoose.Types.ObjectId.isValid(projectId)) {
+      query.projectId = new mongoose.Types.ObjectId(projectId);
+    }
+    if (assignedTo && mongoose.Types.ObjectId.isValid(assignedTo)) {
+      query.assignedTo = new mongoose.Types.ObjectId(assignedTo);
+    }
 
     const skip = (page - 1) * limit;
 

@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/test", (req, res) => {
-  res.send("User route working");
-});
+const { getUsers } = require("../controllers/userController");
+const protect = require("../middleware/authMiddleware");
+
+// 🔐 Protected route
+router.get("/", protect, getUsers);
 
 module.exports = router;

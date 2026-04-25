@@ -6,13 +6,13 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const Company = require("../models/Company");
 
-// helper (clean + reusable)
+// 🔐 Generate JWT
 const generateToken = (user) => {
   return jwt.sign(
     {
-      id: user._id,                      // ✅ standard key
+      id: user._id,
       companyId: user.companyId._id || user.companyId,
-      role: user.role,                  // 🔥 include role
+      role: user.role,
     },
     process.env.JWT_SECRET,
     { expiresIn: "1d" }
@@ -21,20 +21,22 @@ const generateToken = (user) => {
 
 /**
  * @route   POST /api/auth/register
+ * @desc    Register user inside a company
  */
 router.post("/register", async (req, res, next) => {
   try {
-    const { name, email, password, companyName } = req.body;
+    const { name, email, password, companyId, role } = req.body;
 
-    if (!name || !email || !password || !companyName) {
+    // ✅ Validation
+    if (!name || !email || !password || !companyId) {
       return res.status(400).json({
         message: "All fields are required",
       });
     }
 
     const normalizedEmail = email.toLowerCase().trim();
-    const normalizedCompanyName = companyName.trim();
 
+    // ✅ Check existing user
     const existingUser = await User.findOne({ email: normalizedEmail });
     if (existingUser) {
       return res.status(409).json({
@@ -42,26 +44,27 @@ router.post("/register", async (req, res, next) => {
       });
     }
 
-    let company = await Company.findOne({
-      name: { $regex: `^${normalizedCompanyName}$`, $options: "i" },
-    });
-
+    // ✅ Validate company
+    const company = await Company.findById(companyId);
     if (!company) {
-      company = await Company.create({
-        name: normalizedCompanyName,
+      return res.status(404).json({
+        message: "Company not found",
       });
     }
 
+    // 🔐 Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // ✅ Create user
     const user = await User.create({
       name: name.trim(),
       email: normalizedEmail,
       password: hashedPassword,
       companyId: company._id,
-      role: "member", // 🔥 default role
+      role: role || "member", // 🔥 dynamic role
     });
 
+    // Remove password
     const userResponse = user.toObject();
     delete userResponse.password;
 
@@ -80,6 +83,7 @@ router.post("/register", async (req, res, next) => {
 
 /**
  * @route   POST /api/auth/login
+ * @desc    Login user
  */
 router.post("/login", async (req, res, next) => {
   try {
@@ -111,7 +115,6 @@ router.post("/login", async (req, res, next) => {
       throw new Error("JWT_SECRET is not defined");
     }
 
-    // 🔥 FIXED + includes role
     const token = generateToken(user);
 
     const userResponse = user.toObject();

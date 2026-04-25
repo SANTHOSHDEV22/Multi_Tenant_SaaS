@@ -1,0 +1,323 @@
+/* 🌍 Page */
+.usersPage {
+  padding: 30px 40px;
+  background: #f8fafc;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* 🔝 Header */
+.usersHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.usersTitle {
+  font-size: 22px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.subText {
+  font-size: 13px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+/* ➕ Add User Button */
+.addUserBtn {
+  background: #6366f1;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.addUserBtn:hover {
+  background: #4f46e5;
+}
+
+/* 📋 Grid */
+.usersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+/* 🧱 User Card */
+.userCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 20px;
+
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.userCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+/* 👤 Avatar */
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
+  font-weight: 600;
+
+  margin: 0 auto 12px;
+}
+
+/* 📝 Name */
+.userCard h4 {
+  margin-bottom: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* 📧 Email */
+.userCard p {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+/* 🏷 Role Badge */
+.roleBadge {
+  display: inline-block;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+
+  background: #eef2ff;
+  color: #6366f1;
+}
+
+/* Empty State */
+.emptyState {
+  color: #94a3b8;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+/* ========================= */
+/* 🧊 MODAL */
+/* ========================= */
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1000;
+}
+
+.modal {
+  width: 360px;
+  padding: 24px;
+
+  background: white;
+  border-radius: 14px;
+
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+
+  animation: fadeIn 0.2s ease;
+}
+
+/* Modal Title */
+.modal h3 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #1e293b;
+}
+
+/* Inputs */
+.modal input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  outline: none;
+
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.modal input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
+
+/* Disabled input (company) */
+.modal input:disabled {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+/* Actions */
+.modalActions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Primary Button */
+.modalActions button[type="submit"] {
+  background: #6366f1;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modalActions button[type="submit"]:hover {
+  background: #4f46e5;
+}
+
+/* Cancel Button */
+.cancelBtn {
+  background: #f1f5f9;
+  color: #334155;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cancelBtn:hover {
+  background: #e2e8f0;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ========================= */
+/* 📱 Responsive */
+/* ========================= */
+
+@media (max-width: 600px) {
+  .usersPage {
+    padding: 20px;
+  }
+
+  .usersHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .modal {
+    width: 90%;
+  }
+}
+
+/* 🔙 Back Button - clean style */
+.backBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  background: white;
+  border: 1px solid #e2e8f0;
+
+  padding: 8px 14px;
+  border-radius: 10px;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.backBtn:hover {
+  background: #f8fafc;
+  transform: translateY(-1px);
+}
+
+/* arrow style */
+.backIcon {
+  font-size: 24px;
+}
+
+/* Align header better */
+.usersHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+/* Delete button */
+/* 🗑 Delete Button - refined */
+.deleteBtn, .removeBtn {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  padding-left: 10px;
+}
+
+
+.form label {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #475569;
+  font-weight: 500;
+}
+
+.form input,
+.form select {
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px;
+
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  outline: none;
+}
+
+.form select {
+  background: white;
+}
+
+.form input:focus,
+.form select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.15);
+}

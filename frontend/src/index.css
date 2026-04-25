@@ -1,0 +1,35 @@
+/* 🔥 RESET + BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 🌍 GLOBAL BODY */
+body {
+  font-family: "Poppins", sans-serif;
+  background: #0f172a; /* matches landing */
+  color: white;
+}
+
+/* 🔗 LINKS */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 🖱 BUTTON RESET */
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* 📱 SCROLLBAR (optional GenZ touch) */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6366f1;
+  border-radius: 10px;
+}

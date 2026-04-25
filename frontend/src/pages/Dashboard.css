@@ -1,0 +1,316 @@
+/* 🌍 Layout */
+.dashboard {
+  min-height: 100vh;
+  background: #f8fafc;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #1e293b;
+}
+
+/* 🔝 Navbar */
+.dashNavbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 32px;
+
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.dashNavbar h2 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #334155;
+}
+
+/* Navbar actions */
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 🍔 Menu button */
+.menuBtn {
+  background: #f1f5f9;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.menuBtn:hover {
+  background: #e2e8f0;
+}
+
+/* ➕ Create Button */
+.createBtn {
+  background: #6366f1;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.createBtn:hover {
+  background: #4f46e5;
+  transform: translateY(-1px);
+}
+
+/* 🚪 Logout Button */
+.logoutBtn {
+  background: #ef4444;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logoutBtn:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+/* 📂 Dropdown Menu */
+.sideMenu {
+  position: absolute;
+  top: 65px;
+  right: 20px;
+
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+
+  min-width: 140px;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.15s ease;
+}
+
+.sideMenu button {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #334155;
+  transition: 0.2s;
+}
+
+.sideMenu button:hover {
+  background: #f1f5f9;
+}
+
+/* 📦 Content */
+.content {
+  padding: 28px 32px;
+}
+
+.content h3 {
+  margin-bottom: 18px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+/* 📋 Project Grid */
+.projectList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* 🧱 Project Card */
+.projectCard {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 12px;
+
+  border: 1px solid #e2e8f0;
+
+  transition: all 0.2s ease;
+}
+
+.projectCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.06);
+}
+
+/* Card Title */
+.projectCard h4 {
+  margin-bottom: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* Card Description */
+.projectCard p {
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* 🎯 Card Actions */
+.cardActions {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+/* Open Button */
+.openBtn {
+  background: #6366f1;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.openBtn:hover {
+  background: #4f46e5;
+}
+
+/* Delete Button (soft red) */
+.deleteBtn {
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.deleteBtn:hover {
+  background: #fecaca;
+}
+
+/* 🧊 Modal Overlay */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(4px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* 🧊 Modal */
+.modal {
+  width: 340px;
+  padding: 22px;
+
+  background: #ffffff;
+  border-radius: 12px;
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.2s ease;
+}
+
+/* Modal Title */
+.modal h3 {
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+/* Inputs */
+.modal input,
+.modal textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.modal input:focus,
+.modal textarea:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
+
+.modal textarea {
+  height: 80px;
+  resize: none;
+}
+
+/* Modal Actions */
+.modalActions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Primary */
+.modalActions button[type="submit"] {
+  background: #6366f1;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.modalActions button[type="submit"]:hover {
+  background: #4f46e5;
+}
+
+/* Cancel */
+.cancelBtn {
+  background: #f1f5f9;
+  color: #334155;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.cancelBtn:hover {
+  background: #e2e8f0;
+}
+
+/* ✨ Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

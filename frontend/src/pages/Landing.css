@@ -1,0 +1,158 @@
+/* 🌌 Background */
+.landing {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  color: #0f172a;
+  font-family: "Poppins", sans-serif;
+}
+
+button {
+  transition: all 0.2s ease;
+}
+
+/* 🔝 Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px); /* 🔥 glass effect */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1e293b;
+}
+
+/* Desktop buttons */
+.navButtons {
+  display: flex;
+  gap: 15px;
+}
+
+.loginBtn {
+  background: transparent;
+  border: 1px solid #cbd5f5;
+  padding: 8px 16px;
+  color: #1e293b;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.loginBtn:hover {
+  background: #f1f5f9;
+}
+
+.signupBtn {
+  background: #6366f1;
+  border: none;
+  padding: 8px 16px;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.signupBtn:hover {
+  background: #4f46e5;
+}
+
+/* 🍔 Hamburger */
+.hamburger {
+  display: none;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+/* 📱 Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 250px;
+  height: 100%;
+  background: white;
+  padding: 20px;
+  transition: 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar.open {
+  right: 0;
+}
+
+.closeBtn {
+  align-self: flex-end;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.sidebar button {
+  padding: 10px;
+  background: #6366f1;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+/* 🌟 Hero */
+.hero {
+  text-align: center;
+  margin-top: 120px;
+  padding: 0 20px;
+}
+
+.hero h1 {
+  font-size: 48px;
+  font-weight: bold;
+  color: #0f172a;
+}
+
+.hero p {
+  margin-top: 15px;
+  color: #475569;
+}
+
+.cta {
+  margin-top: 25px;
+  padding: 12px 24px;
+  background: #22c55e;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.cta:hover {
+  background: #16a34a;
+  transform: translateY(-2px);
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .navButtons {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+}

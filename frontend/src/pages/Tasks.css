@@ -1,0 +1,274 @@
+/* 🌍 Page Layout */
+.tasksPage {
+  padding: 30px;
+  background: #f8fafc;
+  min-height: 100vh;
+  font-family: system-ui, sans-serif;
+}
+
+/* 🔝 Title */
+.projectTitle {
+  margin-bottom: 20px;
+  color: #0f172a;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* ➕ Task Form */
+.taskForm {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.taskForm input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  outline: none;
+  transition: 0.2s;
+}
+
+.taskForm input:focus {
+  border-color: #6366f1;
+}
+
+.taskForm button {
+  background: #6366f1;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.taskForm button:hover {
+  background: #4f46e5;
+}
+
+/* 📋 Grid */
+.taskGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+/* 🧱 Task Card */
+.taskCard {
+  background: white;
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+
+  color: #1e293b; /* 🔥 FIXED TEXT ISSUE */
+
+  transition: all 0.2s ease;
+}
+
+.taskCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+/* 📝 Title */
+.taskTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+/* 📄 Description */
+.taskCard p {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+/* 🏷 Status Badge */
+.status {
+  display: inline-block;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+
+  background: #eef2ff;
+  color: #6366f1;
+}
+
+/* 👤 Assigned */
+.assigned {
+  font-size: 12px;
+  color: #475569;
+  margin-bottom: 8px;
+}
+
+/* 🔘 Actions */
+.taskActions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+/* ▶️ Open Button */
+.openBtn {
+  background: #6366f1;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.openBtn:hover {
+  background: #4f46e5;
+}
+
+/* 🗑 Delete Button */
+.deleteBtn {
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.deleteBtn:hover {
+  background: #fecaca;
+}
+
+/* 🧊 Modal Overlay */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  backdrop-filter: blur(4px);
+}
+
+/* 🧊 Modal */
+.modal {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+  width: 340px;
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.2s ease;
+}
+
+/* Inputs */
+.modal input,
+.modal textarea,
+.modal select {
+  width: 100%;
+  margin-top: 12px;
+  padding: 10px;
+
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  outline: none;
+}
+
+.modal input:focus,
+.modal textarea:focus,
+.modal select:focus {
+  border-color: #6366f1;
+}
+
+/* Actions */
+.modalActions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Primary */
+.modalActions button[type="submit"] {
+  background: #6366f1;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+
+/* Cancel */
+.cancelBtn {
+  background: #f1f5f9;
+  color: #334155;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal label {
+  display: block;
+  margin-top: 14px;
+  margin-bottom: 6px;
+
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modal h3 {
+  margin-bottom: 10px;
+  color: #0f172a;
+}
+
+/* 🏷 Base */
+.status {
+  display: inline-block;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+/* ⚪ Not Assigned */
+.status-default {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+/* 🔵 Assigned */
+.status-assigned {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+/* 🟡 In Progress */
+.status-progress {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+/* 🟢 Completed */
+.status-completed {
+  background: #dcfce7;
+  color: #16a34a;
+}
