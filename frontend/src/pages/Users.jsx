@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../services/api";
+import { toast } from "react-toastify";
 import "./Users.css";
 
 function Users() {
@@ -66,15 +67,16 @@ function Users() {
 
       setShowModal(false);
       fetchUsers();
+      toast.success("User added 👤");
     } catch (err) {
-      alert(err.response?.data?.message || "Error adding user");
+      toast.error(err.response?.data?.message || "Error adding user ❌");
     }
   };
 
   // 🗑 Delete User
   const handleDeleteUser = async (id) => {
     if (id === user?._id) {
-      return alert("You cannot delete yourself");
+      return toast.error("You cannot delete yourself ❌");
     }
 
     if (!window.confirm("Delete this user?")) return;
@@ -83,7 +85,7 @@ function Users() {
       await API.delete(`/users/${id}`);
       fetchUsers();
     } catch (err) {
-      alert(err.response?.data?.message || "Delete failed");
+      toast.error(err.response?.data?.message || "Delete failed ❌");
     }
   };
 

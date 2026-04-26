@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import API from "../services/api";
 import "./Dashboard.css";
 
@@ -45,7 +46,7 @@ function Dashboard() {
       setForm({ name: "", description: "" });
       fetchProjects();
     } catch (err) {
-      alert(err.response?.data?.message || "Error");
+      toast.error(err.response?.data?.message || "Project creation failed ❌");
     }
   };
 
@@ -56,7 +57,7 @@ function Dashboard() {
       await API.delete(`/projects/${id}`);
       fetchProjects();
     } catch (err) {
-      alert("Delete failed");
+      toast.error(err.response?.data?.message || "Delete failed ❌");
     }
   };
 
@@ -99,6 +100,10 @@ function Dashboard() {
         <div className="sideMenu">
           <button onClick={() => navigate("/dashboard")}>
             Dashboard
+          </button>
+
+          <button onClick={() => navigate("/stats")}>
+            Stats
           </button>
 
           <button onClick={() => navigate("/team")}>

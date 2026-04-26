@@ -10,6 +10,7 @@ const authRoutes = require("./routes/authRoutes");
 const companyRoutes = require("./routes/companyRoutes");
 const projectRoutes = require("./routes/projectRoutes");
 const taskRoutes = require("./routes/taskRoutes");
+const statsRoutes = require("./routes/statsRoutes");
 
 // Middleware
 const errorMiddleware = require("./middleware/errorMiddleware");
@@ -43,6 +44,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/company", companyRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/tasks", taskRoutes);
+app.use("/api/stats", statsRoutes);
 
 // ❌ 404 Handler (optional but good)
 app.use((req, res) => {

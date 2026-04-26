@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../services/api";
+import { toast } from "react-toastify";
 import "./Login.css";
 
 function Login() {
@@ -41,10 +42,11 @@ function Login() {
       // 🔐 Store auth data
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
-
+      toast.success("Login successful 🎉");
       navigate("/dashboard");
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
+      toast.error(err.response?.data?.message || "Login failed ❌");
     } finally {
       setLoading(false);
     }

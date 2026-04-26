@@ -314,3 +314,68 @@
     transform: translateY(0) scale(1);
   }
 }
+
+/* ========================= */
+/* 📊 STATS PAGE */
+/* ========================= */
+
+.statsPage {
+  padding: 30px;
+}
+
+/* Title */
+.statsTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 25px;
+}
+
+/* Container */
+.statsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* Card */
+.statCard {
+  background: white;
+  padding: 22px;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-4px);
+}
+
+/* Label */
+.statCard h4 {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 10px;
+}
+
+/* Value */
+.statCard p {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* Optional color accents */
+.statCard:nth-child(1) {
+  border-left: 4px solid #6366f1;
+}
+
+.statCard:nth-child(2) {
+  border-left: 4px solid #f59e0b;
+}
+
+.statCard:nth-child(3) {
+  border-left: 4px solid #22c55e;
+}

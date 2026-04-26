@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../services/api";
+import { toast } from "react-toastify";
 import "./Register.css";
 
 function Register() {
@@ -23,7 +24,7 @@ function Register() {
 
     // 🔥 VALIDATION
     if (form.password !== form.confirmPassword) {
-      return alert("Passwords do not match ❌");
+      return toast.error("Passwords do not match ❌");
     }
 
     try {
@@ -34,10 +35,10 @@ function Register() {
         companyName: form.companyName,
       });
 
-      alert("Registered successfully 🎉");
+      toast.success("Registered successfully 🎉");
       navigate("/login");
     } catch (err) {
-      alert(err.response?.data?.message || "Register failed");
+      toast.error(err.response?.data?.message || "Register failed ❌");
     }
   };
 
